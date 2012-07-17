@@ -1,19 +1,30 @@
-var express = require('express');
-var app = express.createServer();
-var util = require('util');
+var express = require('express'),
+	cons = require('consolidate'),
+	app = express();
+
+app.engine('dust', cons.dust);
+
+app.set('view engine', 'dust');
+app.set('views', __dirname + '/views');
 
 app.get('/', function (req, res) {
-    res.render('views/index.dust');
+    res.render('index');
 });
 
 var browserify = require('browserify');
 var dustify = require('../index.js');
 
-util.print('Generating bundle... ');
-var bundle = browserify().use(dustify());
-bundle.addEntry(__dirname + '/entry.js');
+console.info('Generating bundle... ');
+var bundle = browserify({
+		mount: '/javascripts/main.js',
+		require: {
+			'jquery': 'jquery-browserify'
+		}
+	})
+	.use(dustify())
+	.addEntry(__dirname + '/entry.js');
 app.use(bundle);
-console.log('done');
+console.info('done');
 
 app.listen(3000);
-console.log('Listening on 3000');
+console.info('Listening on 3000');
