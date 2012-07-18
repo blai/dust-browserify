@@ -3,13 +3,20 @@
 	"description": "Dust.js packaged for node-browserify",
 	"keywords": ["util", "browserify", "dust"],
 	"author": "Brian Lai <brian.lai.ym@gmail.com>",
+	"private": true,
+	"publishConfig": {
+		"registry": "http://16.78.112.212:5984/registry/_design/app/_rewrite"
+	},
 	"engine": { "node" : ">=0.4" },
 	"dependencies": {
-		"dustjs-linkedin": "~ 1",
+		"dustjs-linkedin": "1.0.0",
     "underscore": "*"
 	},
     "devDependencies": {
-        "express": "~ 3"
+        "express": "~ 3",
+        "consolidate": "*",
+        "browserify": "~ 1",
+        "jquery-browserify": "*"
     },
 	"lib": "lib",
 	"main": "index.js",
