@@ -1,16 +1,16 @@
 {
-	"name": "dustify-browserify",
+	"name": "dust-browserify",
 	"description": "Dust.js packaged for node-browserify",
+	"version": "0.1.1",
 	"keywords": ["util", "browserify", "dust"],
 	"author": "Brian Lai <brian.lai.ym@gmail.com>",
-	"private": true,
 	"publishConfig": {
-		"registry": "http://16.78.112.212:5984/registry/_design/app/_rewrite"
+		"registry": "http://16.78.112.212:5984/registry/_design/app/_rewrite/"
 	},
 	"engine": { "node" : ">=0.4" },
 	"dependencies": {
 		"dustjs-linkedin": "1.0.0",
-    "underscore": "*"
+    	"underscore": "*"
 	},
     "devDependencies": {
         "express": "~ 3",
@@ -20,7 +20,6 @@
     },
 	"lib": "lib",
 	"main": "index.js",
-	"version": "0.1.0",
 	"repository": "git://github.com/blai/dust-browserify.git",
 	"browserify": "empty.js"
 }
