@@ -1,4 +1,4 @@
-{>"views/template.dust"/}
+{>"example/views/template.dust"/}
 
 {<html_body}
     Hello world!

@@ -1,6 +1,5 @@
 var dust = require('dustjs-linkedin'),
     _ = require('underscore'),
-    fs = require('fs'),
     path = require('path');
 
 module.exports = function (opts) {
@@ -18,13 +17,14 @@ module.exports = function (opts) {
         if (opts.dust != 'none') {
             var dustPath = __dirname + '/node_modules/dustjs-linkedin/';
             var dustVersion = require(dustPath + 'package.json').version;
-            // we want to use the right dist file
-            var dustEngine = fs.readFileSync(dustPath + 'dist/dust-' + opts.dust + '-' + dustVersion + '.js', 'utf-8');
+
     		// hack to by-pass dust's dependency hack
-            browserify.require('./dust-helpers', {body: 'module.exports = function(){};', target: 'dust-helpers'});
-            browserify.require('./server', {body: 'module.exports = function(){};', target: 'server'});
+            browserify.require('/dust-helpers', {file: __dirname + '/helpers/dust-helpers.js', target: '/dust-helpers'});
+            browserify.alias('./dust-helpers', '/dust-helpers');
+            browserify.require('/server', {file: __dirname + '/helpers/server.js', target: '/server'});
+            browserify.alias('./server', '/server');
             
-            browserify.require('dust', {body: dustEngine, target: 'dust'});
+            browserify.require('dust', {file: dustPath + 'dist/dust-' + opts.dust + '-' + dustVersion + '.js', target: 'dust'});
         }
 	};
 };

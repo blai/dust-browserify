@@ -1,1 +1,0 @@
-{"ts":1342387819260,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"var dust = require('dustjs-linkedin');\n\nexports = module.exports = function (opts) {\n  return function (browserify) {\n    browserify.register('.dust', function (body) {\n      return dust.compile(body);\n    });\n  };\n}"]],"start1":0,"start2":0,"length1":0,"length2":216}]],"length":216}

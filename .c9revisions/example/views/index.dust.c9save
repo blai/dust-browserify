@@ -1,2 +1,0 @@
-{"ts":1342388358037,"silentsave":true,"restoring":false,"patch":[[]],"length":0}
-{"contributors":[],"silentsave":false,"ts":1342388393903,"patch":[[{"diffs":[[1,"{>\"template\"/}\n\n{<html_body}\n    Hello world!\n{/html_body}\n"]],"start1":0,"start2":0,"length1":0,"length2":59}]],"length":59,"saved":false}

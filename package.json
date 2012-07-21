@@ -21,5 +21,5 @@
 	"lib": "lib",
 	"main": "index.js",
 	"repository": "git://github.com/blai/dust-browserify.git",
-	"browserify": "empty.js"
+	"browserify": "empty-browserify.js"
 }
