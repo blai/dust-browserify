@@ -1,5 +1,5 @@
-{>"example/views/template.dust"/}
+{>"./views/template.dust"/}
 
 {<html_body}
-    Hello world!
+    Hello index.dust!
 {/html_body}
