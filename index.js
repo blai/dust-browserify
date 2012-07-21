@@ -1,6 +1,7 @@
-var dust = require('dustjs-linkedin'),
-    _ = require('underscore'),
-    path = require('path');
+var dust = require('dustjs-linkedin')
+,   _ = require('underscore')
+,   fs = require('fs')
+,   path = require('path');
 
 module.exports = function (opts) {
     opts || (opts = {});
@@ -8,17 +9,26 @@ module.exports = function (opts) {
         'dust': 'core' // whether (and which version) to include the dust engine
     });
 
-	return function (browserify) {
-		browserify.register('.dust', function (body, file) {
+    return function (browserify) {
+        browserify.register('.dust', function (body, file) {
             var name =  Math.floor(Math.random() * Math.pow(2,32)).toString(16);
-			return 'var dust = require("dust"); ' + dust.compile(body, name) + ';module.exports = function(c, cb){dust.render("' + name + '", c, cb)}';
-		});
+            return 'var dust = require("dust"); ' + dust.compile(body, name) + ';module.exports = function(c, cb){dust.render("' + name + '", c, cb)}';
+        });
 
         if (opts.dust != 'none') {
-            var dustPath = __dirname + '/node_modules/dustjs-linkedin/';
-            var dustVersion = require(dustPath + 'package.json').version;
+            var i, dustPath, dustVersion;
+            for (i = 0; i < module.paths.length; i++) {
+                dustPath = module.paths[i] + '/dustjs-linkedin/';
+                if (fs.existsSync(dustPath + 'package.json')) {
+                    dustVersion = require(dustPath + 'package.json').version;
+                    break;
+                }
+            }
 
-    		// hack to by-pass dust's dependency hack
+            if (!dustVersion)
+                throw new Error('failed to load dustjs-linkedin (is dustjs-linkedin under node_modules?)');
+
+            // hack to by-pass dust's dependency hack
             browserify.require('/dust-helpers', {file: __dirname + '/helpers/dust-helpers.js', target: '/dust-helpers'});
             browserify.alias('./dust-helpers', '/dust-helpers');
             browserify.require('/server', {file: __dirname + '/helpers/server.js', target: '/server'});
@@ -26,5 +36,5 @@ module.exports = function (opts) {
             
             browserify.require('dust', {file: dustPath + 'dist/dust-' + opts.dust + '-' + dustVersion + '.js', target: 'dust'});
         }
-	};
+    };
 };
